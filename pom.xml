@@ -7,13 +7,27 @@
 	<name>Tynamo RESTEasy</name>
 	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>>RESTEasy Tapestry5 Integration</description>
+	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.0.1</version>
+		<version>0.0.4</version>
 	</parent>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</developerConnection>
+    <url>http://svn.tynamo.codehaus.org/tynamo/trunk/tapestry-resteasy</url>
+  </scm>
+	
+	<distributionManagement>
+		<site>
+			<id>tynamo-site</id>
+			<!-- Note the url. Only static files deployed in /constant/ can be decorated by Unity -->
+			<url>dav:https://dav.codehaus.org/tynamo/constant/site/tapestry-resteasy</url>
+		</site>
+	</distributionManagement>
 
 	<build>
 		<plugins>
@@ -84,5 +98,23 @@
 		</dependency>
 
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>repositories</id>
+			<repositories>
+				<repository>
+					<id>repository.jboss.org</id>
+					<url>http://repository.jboss.org/maven2</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+	</profiles>
 
 </project>
