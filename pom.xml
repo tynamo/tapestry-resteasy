@@ -92,7 +92,7 @@
 
 		<dependency>
 			<groupId>org.tynamo</groupId>
-			<artifactId>tynamo-crud-test</artifactId>
+			<artifactId>tapestry-model-test</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
