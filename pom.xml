@@ -113,6 +113,26 @@
 						<enabled>false</enabled>
 					</snapshots>
 				</repository>
+				<repository>
+					<id>maven-repository.dev.java.net</id>
+					<url>https://maven-repository.dev.java.net/nonav/repository</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<repository>
+					<id>java.net</id>
+					<url>https://maven-repository.dev.java.net/nonav/repository</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
 			</repositories>
 		</profile>
 	</profiles>
