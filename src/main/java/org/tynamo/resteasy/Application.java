@@ -1,17 +1,16 @@
 package org.tynamo.resteasy;
 
-import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Collection;
 
-public class WsApplication extends Application
+public class Application extends javax.ws.rs.core.Application
 {
 	private Set<Object> singletons = new HashSet<Object>();
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
 
 
-	public WsApplication(Collection<Object> singletons)
+	public Application(Collection<Object> singletons)
 	{
 		this.singletons = new HashSet<Object>(singletons);
 	}

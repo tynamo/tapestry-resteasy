@@ -10,7 +10,7 @@ import java.util.Collection;
  * The service's configuration is the names of Java packages to search for rest services.
  */
 @UsesConfiguration(String.class)
-public interface WsPackageManager
+public interface PackageManager
 {
 	/**
 	 * Returns packages from which read rest services classes

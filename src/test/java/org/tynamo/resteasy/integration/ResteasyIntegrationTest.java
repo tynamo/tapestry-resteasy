@@ -9,7 +9,7 @@ public class ResteasyIntegrationTest extends AbstractContainerTest
 	@Test
 	public void testPingResource() throws Exception
 	{
-		HtmlPage page = webClient.getPage(BASEURI + "rest/ping");
+		HtmlPage page = webClient.getPage(BASEURI + "mycustomresteasyprefix/ping");
 		assertXPathPresent(page, "//h1[contains(text(),'PONG')]");
 	}
 

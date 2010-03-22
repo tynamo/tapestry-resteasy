@@ -4,13 +4,13 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.0.4</version>
+		<version>0.0.5</version>
 	</parent>
 
 	<scm>
@@ -60,7 +60,7 @@
 
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
-			<artifactId>tapestry-hibernate</artifactId>
+			<artifactId>tapestry-core</artifactId>
 			<version>${tapestry-release-version}</version>
 			<scope>provided</scope>
 		</dependency>
@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>1.1.GA</version>
+			<version>2.0-beta-1</version>
 			<!-- filter out unwanted jars -->
 			<exclusions>
 				<exclusion>
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxb-provider</artifactId>
-			<version>1.1.GA</version>
+			<version>2.0-beta-1</version>
 		</dependency>
 
 		<dependency>
