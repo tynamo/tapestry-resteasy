@@ -32,7 +32,7 @@ public class ResteasyModule
 	                                                       @InjectService("ResteasyRequestFilter")
 	                                                       HttpServletRequestFilter resteasyRequestFilter)
 	{
-		configuration.add("ResteasyRequestFilter", resteasyRequestFilter);
+		configuration.add("ResteasyRequestFilter", resteasyRequestFilter, "before:GZIP");
 	}
 
 	public static void contributeFactoryDefaults(MappedConfiguration<String, String> configuration)
