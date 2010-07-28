@@ -73,10 +73,10 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 
 	@Override
 	public HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
-	                                             UriInfoImpl uriInfo, HttpResponse theResponse) {
+	                                          UriInfoImpl uriInfo, HttpResponse theResponse, HttpServletResponse response)
+	{
 		return createHttpRequest(httpMethod, request, headers, uriInfo, theResponse);
 	}
-
 
 	@Override
 	public HttpResponse createResteasyHttpResponse(HttpServletResponse response) {

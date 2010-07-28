@@ -10,6 +10,7 @@ import org.apache.tapestry5.ioc.services.ClassNameLocator;
 import org.apache.tapestry5.services.HttpServletRequestFilter;
 import org.jboss.resteasy.util.GetRestful;
 
+import javax.ws.rs.ext.Provider;
 import java.util.Collection;
 
 /**
@@ -55,7 +56,7 @@ public class ResteasyModule
 				{
 					Class entityClass = contextClassLoader.loadClass(className);
 
-					if (GetRestful.isRootResource(entityClass))
+					if (GetRestful.isRootResource(entityClass) || entityClass.isAnnotationPresent(Provider.class))
 					{
 						singletons.add(locator.autobuild(entityClass));
 					}
