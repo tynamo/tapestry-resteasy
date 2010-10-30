@@ -33,7 +33,7 @@ public class ResteasyModule
 	                                                       @InjectService("ResteasyRequestFilter")
 	                                                       HttpServletRequestFilter resteasyRequestFilter)
 	{
-		configuration.add("ResteasyRequestFilter", resteasyRequestFilter, "before:GZIP");
+		configuration.add("ResteasyRequestFilter", resteasyRequestFilter, "after:IgnoredPaths", "before:GZIP");
 	}
 
 	public static void contributeFactoryDefaults(MappedConfiguration<String, String> configuration)
