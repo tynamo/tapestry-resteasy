@@ -1,4 +1,4 @@
-package org.tynamo.resteasy.ws;
+package org.tynamo.resteasy.ws.autobuild;
 
 
 import javax.ws.rs.GET;

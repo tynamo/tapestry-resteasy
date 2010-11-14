@@ -1,11 +1,13 @@
 package org.tynamo.resteasy;
 
+import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.internal.services.CheckForUpdatesFilter;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.ioc.annotations.IntermediateType;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.SymbolSource;
-import org.apache.tapestry5.services.ApplicationGlobals;
-import org.apache.tapestry5.services.HttpServletRequestFilter;
-import org.apache.tapestry5.services.HttpServletRequestHandler;
+import org.apache.tapestry5.ioc.util.TimeInterval;
+import org.apache.tapestry5.services.*;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.*;
@@ -35,10 +37,29 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	private String filterPath;
 	private Logger logger;
 
+	boolean productionMode;
+
+
+	private CheckForUpdatesFilter checkForUpdatesFilter;
+
+	private RequestHandler dummyHandler = new RequestHandler() {
+		@Override
+		public boolean service(Request request, Response response) throws IOException {
+			return false;
+		}
+	};
+
 	public ResteasyRequestFilter(
 			@Inject @Symbol(ResteasySymbols.MAPPING_PREFIX) String filterPath,
-			Logger logger, ApplicationGlobals globals, Application application,
-			SymbolSource source) throws ServletException {
+			Logger logger,
+			ApplicationGlobals globals,
+			Application application,
+			SymbolSource source,
+			@Symbol(SymbolConstants.PRODUCTION_MODE) boolean productionMode,
+			UpdateListenerHub updateListenerHub,
+			@Symbol(SymbolConstants.FILE_CHECK_INTERVAL) @IntermediateType(TimeInterval.class) long checkInterval,
+			@Symbol(SymbolConstants.FILE_CHECK_UPDATE_TIMEOUT) @IntermediateType(TimeInterval.class) long updateTimeout
+	) throws ServletException {
 
 		this.filterPath = filterPath + ".*";
 		this.logger = logger;
@@ -50,6 +71,9 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		dispatcher = servletContainerDispatcher.getDispatcher();
 		providerFactory = servletContainerDispatcher.getDispatcher().getProviderFactory();
 		processApplication(application);
+
+		this.productionMode = productionMode;
+		checkForUpdatesFilter = new CheckForUpdatesFilter(updateListenerHub, checkInterval, updateTimeout);
 	}
 
 	@Override
@@ -64,6 +88,11 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		Pattern p = Pattern.compile(filterPath, Pattern.CASE_INSENSITIVE);
 
 		if (p.matcher(path).matches()) {
+
+			if (!productionMode) {
+				checkForUpdatesFilter.service(null, null, dummyHandler);
+			}
+
 			servletContainerDispatcher.service(request.getMethod(), request, response, true);
 			return true;
 		}
