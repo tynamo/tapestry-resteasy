@@ -3,6 +3,7 @@ package org.tynamo.resteasy;
 
 import org.apache.tapestry5.internal.InternalConstants;
 import org.apache.tapestry5.ioc.*;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -41,6 +42,7 @@ public class ResteasyModule
 		configuration.add(ResteasySymbols.MAPPING_PREFIX, "/rest");
 	}
 
+	@Contribute(javax.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons,
 	                                         ObjectLocator locator,
 	                                         ResteasyPackageManager resteasyPackageManager,

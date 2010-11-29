@@ -3,6 +3,7 @@ package org.tynamo.resteasy.services;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.tynamo.resteasy.ws.ReloadableEchoResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResourceImpl;
@@ -23,9 +24,8 @@ public class AppModule
 	 * Contributions to the RESTeasy main Application, insert all your RESTeasy singleton services here.
 	 * <p/>
 	 *
-	 * @note: this is here for documentation purposes we don't need this anymore, the PingResource will be added by
-	 * ResteasyPackageManager
 	 */
+	@Contribute(javax.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons,
 	                                         ReloadableEchoResource reloadableEchoResource)
 	{
