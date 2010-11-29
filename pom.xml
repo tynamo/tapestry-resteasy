@@ -4,7 +4,7 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.2.1</version>
+	<version>0.2.2-SNAPSHOT</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
@@ -18,9 +18,9 @@
 	</properties>
 
 	<scm>
-		<connection>scm:svn:http://svn.codehaus.org/tynamo/tags/tapestry-resteasy-0.2.1</connection>
-		<developerConnection>scm:svn:https://svn.codehaus.org/tynamo/tags/tapestry-resteasy-0.2.1</developerConnection>
-		<url>http://svn.tynamo.codehaus.org/tynamo/tags/tapestry-resteasy-0.2.1</url>
+		<connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</connection>
+		<developerConnection>scm:svn:https://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</developerConnection>
+		<url>http://svn.tynamo.codehaus.org/tynamo/trunk/tapestry-resteasy</url>
 	</scm>
 
 	<distributionManagement>
