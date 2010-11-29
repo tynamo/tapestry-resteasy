@@ -13,6 +13,10 @@
 		<version>0.0.6</version>
 	</parent>
 
+	<properties>
+		<tapestry-release-version>5.2.4</tapestry-release-version>
+	</properties>
+
 	<scm>
 		<connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</connection>
 		<developerConnection>scm:svn:https://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</developerConnection>
@@ -62,7 +66,6 @@
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-core</artifactId>
 			<version>${tapestry-release-version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
