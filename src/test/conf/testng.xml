@@ -1,8 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Tynamo RestEASY Test Suite" annotations="1.5">
-	<test name="Integration Tests">
-		<packages>
-			<package name="org.tynamo.resteasy.integration"/>
-		</packages>
-	</test>
-</suite>
