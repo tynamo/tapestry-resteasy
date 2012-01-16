@@ -4,11 +4,13 @@ package org.tynamo.resteasy;
 import org.apache.tapestry5.internal.InternalConstants;
 import org.apache.tapestry5.ioc.*;
 import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.ClassNameLocator;
+import org.apache.tapestry5.ioc.services.FactoryDefaults;
+import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.HttpServletRequestFilter;
+import org.apache.tapestry5.services.HttpServletRequestHandler;
 import org.jboss.resteasy.util.GetRestful;
 
 import javax.ws.rs.ext.Provider;
@@ -30,23 +32,26 @@ public class ResteasyModule
 		binder.bind(HttpServletRequestFilter.class, ResteasyRequestFilter.class).withId("ResteasyRequestFilter");
 	}
 
-	public static void contributeHttpServletRequestHandler(OrderedConfiguration<HttpServletRequestFilter> configuration,
-	                                                       @InjectService("ResteasyRequestFilter")
-	                                                       HttpServletRequestFilter resteasyRequestFilter)
+	@Contribute(HttpServletRequestHandler.class)
+	public static void httpServletRequestHandler(OrderedConfiguration<HttpServletRequestFilter> configuration,
+	                                             @InjectService("ResteasyRequestFilter")
+	                                             HttpServletRequestFilter resteasyRequestFilter)
 	{
 		configuration.add("ResteasyRequestFilter", resteasyRequestFilter, "after:IgnoredPaths", "before:GZIP");
 	}
 
-	public static void contributeFactoryDefaults(MappedConfiguration<String, String> configuration)
+	@Contribute(SymbolProvider.class)
+	@FactoryDefaults
+	public static void setupSymbols(MappedConfiguration<String, String> configuration)
 	{
 		configuration.add(ResteasySymbols.MAPPING_PREFIX, "/rest");
 	}
 
 	@Contribute(javax.ws.rs.core.Application.class)
-	public static void contributeApplication(Configuration<Object> singletons,
-	                                         ObjectLocator locator,
-	                                         ResteasyPackageManager resteasyPackageManager,
-	                                         ClassNameLocator classNameLocator)
+	public static void javaxWsRsCoreApplication(Configuration<Object> singletons,
+	                                            ObjectLocator locator,
+	                                            ResteasyPackageManager resteasyPackageManager,
+	                                            ClassNameLocator classNameLocator)
 	{
 		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
@@ -76,10 +81,10 @@ public class ResteasyModule
 	 * Contributes the package "&lt;root&gt;.rest" (InternalConstants.TAPESTRY_APP_PACKAGE_PARAM + ".rest")
 	 * to the configuration, so that it will be scanned for annotated REST resource classes.
 	 */
-	public static void contributeResteasyPackageManager(Configuration<String> configuration,
-	                                                    @Inject
-	                                                    @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM)
-	                                                    String appRootPackage)
+	@Contribute(ResteasyPackageManager.class)
+	public static void resteasyPackageManager(Configuration<String> configuration,
+	                                          @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM)
+	                                          String appRootPackage)
 	{
 		configuration.add(appRootPackage + ".rest");
 	}
