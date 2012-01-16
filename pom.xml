@@ -11,12 +11,8 @@
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.0.8</version>
+		<version>0.0.9</version>
 	</parent>
-
-	<properties>
-		<tapestry-release-version>5.3</tapestry-release-version>
-	</properties>
 
 	<scm>
 		<connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</connection>
