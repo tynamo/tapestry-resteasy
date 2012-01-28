@@ -67,9 +67,7 @@ public class ResteasyModule
 					{
 						singletons.add(locator.autobuild(entityClass));
 					}
-				}
-
-				catch (ClassNotFoundException ex)
+				} catch (ClassNotFoundException ex)
 				{
 					throw new RuntimeException(ex);
 				}
@@ -83,10 +81,13 @@ public class ResteasyModule
 	 */
 	@Contribute(ResteasyPackageManager.class)
 	public static void resteasyPackageManager(Configuration<String> configuration,
-	                                          @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM)
-	                                          String appRootPackage)
+	                                          @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM) String appRootPackage,
+	                                          @Symbol(ResteasySymbols.AUTOSCAN_REST_PACKAGE) Boolean shouldScanRestPackage)
 	{
-		configuration.add(appRootPackage + ".rest");
+		if (shouldScanRestPackage)
+		{
+			configuration.add(appRootPackage + ".rest");
+		}
 	}
 
 	public static ResteasyPackageManager buildResteasyPackageManager(final Collection<String> packageNames)
@@ -98,6 +99,13 @@ public class ResteasyModule
 				return packageNames;
 			}
 		};
+	}
+
+	@Contribute(SymbolProvider.class)
+	@FactoryDefaults
+	public static void provideFactoryDefaults(final MappedConfiguration<String, String> configuration)
+	{
+		configuration.add(ResteasySymbols.AUTOSCAN_REST_PACKAGE, "true");
 	}
 
 }

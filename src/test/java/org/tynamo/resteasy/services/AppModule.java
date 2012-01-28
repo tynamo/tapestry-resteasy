@@ -1,14 +1,19 @@
 package org.tynamo.resteasy.services;
 
+import org.apache.tapestry5.internal.InternalConstants;
+import org.apache.tapestry5.internal.InternalSymbols;
 import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.services.ApplicationDefaults;
+import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.tynamo.resteasy.ResteasyModule;
+import org.tynamo.resteasy.ResteasyPackageManager;
+import org.tynamo.resteasy.ResteasySymbols;
 import org.tynamo.resteasy.ws.ReloadableEchoResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResourceImpl;
-import org.tynamo.resteasy.ResteasyModule;
-import org.tynamo.resteasy.ResteasySymbols;
 
 @SubModule(ResteasyModule.class)
 public class AppModule
@@ -32,12 +37,17 @@ public class AppModule
 		singletons.add(reloadableEchoResource);
 	}
 
-	public static void contributeApplicationDefaults(MappedConfiguration<String, String> configuration)
+	@Contribute(SymbolProvider.class)
+	@ApplicationDefaults
+	public static void provideSymbols(MappedConfiguration<String, String> configuration)
 	{
 		configuration.add(ResteasySymbols.MAPPING_PREFIX, "/mycustomresteasyprefix");
+		configuration.add(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM, "org.tynamo.resteasy");
+		configuration.add(InternalSymbols.APP_PACKAGE_PATH, "org/tynamo/resteasy");
 	}
 
-	public static void contributeResteasyPackageManager(Configuration<String> configuration)
+	@Contribute(ResteasyPackageManager.class)
+	public static void resteasyPackageManager(Configuration<String> configuration)
 	{
 		configuration.add("org.tynamo.resteasy.ws.autobuild");
 	}
