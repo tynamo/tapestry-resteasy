@@ -11,10 +11,10 @@ import org.apache.tapestry5.services.*;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.*;
-import org.jboss.resteasy.specimpl.UriInfoImpl;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
+import org.jboss.resteasy.spi.ResteasyUriInfo;
 import org.jboss.resteasy.util.GetRestful;
 import org.slf4j.Logger;
 
@@ -102,9 +102,8 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 
 	@Override
 	public HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
-	                                          UriInfoImpl uriInfo, HttpResponse theResponse, HttpServletResponse response)
-	{
-		return createHttpRequest(httpMethod, request, headers, uriInfo, theResponse);
+	                                             ResteasyUriInfo uriInfo, HttpResponse theResponse, HttpServletResponse response) {
+		return createResteasyHttpRequest(httpMethod, request, headers, uriInfo, theResponse);
 	}
 
 	@Override
@@ -112,8 +111,9 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		return createServletResponse(response);
 	}
 
-	protected HttpRequest createHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
-	                                        UriInfoImpl uriInfo, HttpResponse theResponse) {
+	protected HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
+	                                                ResteasyUriInfo uriInfo, HttpResponse theResponse) {
+
 		return new HttpServletInputMessage(request, theResponse, headers, uriInfo, httpMethod.toUpperCase(), (SynchronousDispatcher) dispatcher);
 	}
 
