@@ -12,6 +12,7 @@ import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.HttpServletRequestFilter;
 import org.apache.tapestry5.services.HttpServletRequestHandler;
 import org.jboss.resteasy.util.GetRestful;
+import org.slf4j.Logger;
 
 import javax.ws.rs.ext.Provider;
 import java.util.Collection;
@@ -51,7 +52,8 @@ public class ResteasyModule
 	public static void javaxWsRsCoreApplication(Configuration<Object> singletons,
 	                                            ObjectLocator locator,
 	                                            ResteasyPackageManager resteasyPackageManager,
-	                                            ClassNameLocator classNameLocator)
+	                                            ClassNameLocator classNameLocator,
+	                                            Logger logger)
 	{
 		ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
@@ -61,12 +63,34 @@ public class ResteasyModule
 			{
 				try
 				{
-					Class entityClass = contextClassLoader.loadClass(className);
+					Class clazz = contextClassLoader.loadClass(className);
+					Class rootResourceClass = GetRestful.getRootResourceClass(clazz);
 
-					if (GetRestful.isRootResource(entityClass) || entityClass.isAnnotationPresent(Provider.class))
+					if (rootResourceClass != null)
 					{
-						singletons.add(locator.autobuild(entityClass));
+						if (rootResourceClass.equals(clazz))
+						{
+							if (!clazz.isInterface())
+							{
+								singletons.add(locator.autobuild(clazz));
+							}
+						} else
+						{
+							try
+							{
+								singletons.add(locator.getService(rootResourceClass));
+							} catch (RuntimeException e)
+							{
+								logger.info(e.getMessage());
+								logger.info("Trying to create a proxy for " + rootResourceClass.getName());
+								singletons.add(locator.proxy(rootResourceClass, clazz));
+							}
+						}
+					} else if (clazz.isAnnotationPresent(Provider.class))
+					{
+						singletons.add(locator.autobuild(clazz));
 					}
+
 				} catch (ClassNotFoundException ex)
 				{
 					throw new RuntimeException(ex);

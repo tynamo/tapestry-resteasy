@@ -25,7 +25,7 @@ public class DisableAutoScanTest extends TapestryTestCase
 		registry.performRegistryStartup();
 
 		javax.ws.rs.core.Application app = registry.getService(javax.ws.rs.core.Application.class);
-		Assert.assertEquals(app.getSingletons().size(), 3, "there are three services");
+		Assert.assertEquals(app.getSingletons().size(), 5, "there are five services");
 
 		registry.shutdown();
 

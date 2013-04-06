@@ -12,6 +12,7 @@ import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.tynamo.resteasy.ResteasyModule;
 import org.tynamo.resteasy.ResteasyPackageManager;
 import org.tynamo.resteasy.ResteasySymbols;
+import org.tynamo.resteasy.rest.AutodiscoverableInjectableResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResourceImpl;
 
@@ -22,6 +23,7 @@ public class AppModule
 	public static void bind(ServiceBinder binder)
 	{
 		binder.bind(ReloadableEchoResource.class, ReloadableEchoResourceImpl.class);
+		binder.bind(AutodiscoverableInjectableResource.class);
 	}
 
 
