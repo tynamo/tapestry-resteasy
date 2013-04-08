@@ -4,11 +4,27 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.jboss.resteasy.client.ClientRequest;
 import org.jboss.resteasy.client.ClientResponse;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.tynamo.test.AbstractContainerTest;
 
 public class ResteasyIntegrationTest extends AbstractContainerTest
 {
+
+	@BeforeClass
+	public void startContainer() throws Exception
+	{
+		String reserveNetworkPort = System.getProperty("reserved.network.port");
+
+		if (reserveNetworkPort != null)
+		{
+			port = Integer.valueOf(reserveNetworkPort);
+			BASEURI = "http://localhost:" + port + "/";
+		}
+
+		super.startContainer();
+	}
+
 	@Test
 	public void testPingResource() throws Exception
 	{
