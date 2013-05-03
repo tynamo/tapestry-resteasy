@@ -77,7 +77,7 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.3.6</tapestry-release-version>
+		<tapestry-release-version>5.3.7</tapestry-release-version>
 	</properties>
 
 	<dependencies>
