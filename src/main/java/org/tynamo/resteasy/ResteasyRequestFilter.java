@@ -11,6 +11,7 @@ import org.apache.tapestry5.services.*;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.*;
+import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
@@ -101,8 +102,9 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	}
 
 	@Override
-	public HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
-	                                             ResteasyUriInfo uriInfo, HttpResponse theResponse, HttpServletResponse response) {
+	public HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request,
+												 ResteasyHttpHeaders headers, ResteasyUriInfo uriInfo,
+												 HttpResponse theResponse, HttpServletResponse response) {
 		return createResteasyHttpRequest(httpMethod, request, headers, uriInfo, theResponse);
 	}
 
@@ -111,7 +113,7 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		return createServletResponse(response);
 	}
 
-	protected HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, HttpHeaders headers,
+	protected HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, ResteasyHttpHeaders headers,
 	                                                ResteasyUriInfo uriInfo, HttpResponse theResponse) {
 
 		return new HttpServletInputMessage(request, theResponse, headers, uriInfo, httpMethod.toUpperCase(), (SynchronousDispatcher) dispatcher);
