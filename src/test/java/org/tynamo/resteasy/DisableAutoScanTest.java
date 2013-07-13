@@ -2,7 +2,7 @@ package org.tynamo.resteasy;
 
 import org.apache.tapestry5.ioc.Registry;
 import org.apache.tapestry5.ioc.RegistryBuilder;
-import org.apache.tapestry5.services.TapestryModule;
+import org.apache.tapestry5.modules.TapestryModule;
 import org.apache.tapestry5.test.TapestryTestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;

@@ -4,7 +4,7 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.3.3-SNAPSHOT</version>
+	<version>0.4.0-SNAPSHOT</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
@@ -77,7 +77,7 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.3.7</tapestry-release-version>
+		<tapestry-release-version>5.4-alpha-9</tapestry-release-version>
 	</properties>
 
 	<dependencies>
@@ -115,15 +115,32 @@
 
 		<dependency>
 			<groupId>org.tynamo</groupId>
-			<artifactId>tapestry-model-test</artifactId>
-			<version>0.3.0</version> <!-- can't upgrade any further due to a conflict with org.apache.httpcomponents versions -->
+			<artifactId>tynamo-test</artifactId>
+			<version>0.0.1</version>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.testng</groupId>
+					<artifactId>testng</artifactId> <!-- conflicts with tapestry-test dependencies-->
+				</exclusion>
+				<exclusion>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-webapp</artifactId> <!-- conflicts with tapestry-test dependencies-->
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
 			<artifactId>tapestry-test</artifactId>
 			<version>${tapestry-release-version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.2</version>
 			<scope>test</scope>
 		</dependency>
 
