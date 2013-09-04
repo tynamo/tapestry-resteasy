@@ -23,7 +23,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,8 +34,8 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	private Dispatcher dispatcher;
 	private ResteasyProviderFactory providerFactory;
 
-	private String filterPath;
-	private Logger logger;
+	private final Pattern filterPattern;
+	private final Logger logger;
 
 	boolean productionMode;
 
@@ -62,8 +61,8 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 			@Symbol(SymbolConstants.FILE_CHECK_UPDATE_TIMEOUT) @IntermediateType(TimeInterval.class) long updateTimeout
 	) throws ServletException {
 
-		this.filterPath = filterPath + ".*";
 		this.logger = logger;
+		this.filterPattern = Pattern.compile(filterPath + ".*", Pattern.CASE_INSENSITIVE);
 
 		ListenerBootstrap bootstrap = new TapestryResteasyBootstrap(globals.getServletContext(), source);
 
@@ -86,9 +85,7 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 
 		if (pathInfo != null) path += pathInfo;
 
-		Pattern p = Pattern.compile(filterPath, Pattern.CASE_INSENSITIVE);
-
-		if (p.matcher(path).matches()) {
+		if (filterPattern.matcher(path).matches()) {
 
 			if (!productionMode) {
 				checkForUpdatesFilter.service(null, null, dummyHandler);
@@ -157,6 +154,4 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		for (Class clazz : actualResourceClasses) dispatcher.getRegistry().addPerRequestResource(clazz);
 		for (Object obj : resources) dispatcher.getRegistry().addSingletonResource(obj);
 	}
-
-
 }

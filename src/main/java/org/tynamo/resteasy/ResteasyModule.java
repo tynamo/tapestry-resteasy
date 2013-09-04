@@ -31,14 +31,16 @@ public class ResteasyModule
 		// invoking the constructor.
 		binder.bind(javax.ws.rs.core.Application.class, org.tynamo.resteasy.Application.class);
 		binder.bind(HttpServletRequestFilter.class, ResteasyRequestFilter.class).withId("ResteasyRequestFilter");
+		binder.bind(HttpServletRequestFilter.class, JSAPIRequestFilter.class).withId("JSAPIRequestFilter");
 	}
 
 	@Contribute(HttpServletRequestHandler.class)
 	public static void httpServletRequestHandler(OrderedConfiguration<HttpServletRequestFilter> configuration,
-	                                             @InjectService("ResteasyRequestFilter")
-	                                             HttpServletRequestFilter resteasyRequestFilter)
+	                                             @InjectService("ResteasyRequestFilter") HttpServletRequestFilter resteasyRequestFilter,
+	                                             @InjectService("JSAPIRequestFilter") HttpServletRequestFilter jsapiRequestFilter)
 	{
 		configuration.add("ResteasyRequestFilter", resteasyRequestFilter, "after:IgnoredPaths", "before:GZIP");
+		configuration.add("JSAPIRequestFilter", jsapiRequestFilter, "after:ResteasyRequestFilter");
 	}
 
 	@Contribute(SymbolProvider.class)
@@ -46,6 +48,7 @@ public class ResteasyModule
 	public static void setupSymbols(MappedConfiguration<String, String> configuration)
 	{
 		configuration.add(ResteasySymbols.MAPPING_PREFIX, "/rest");
+		configuration.add(ResteasySymbols.MAPPING_PREFIX_JSAPI, "/jsapi");
 	}
 
 	@Contribute(javax.ws.rs.core.Application.class)
