@@ -30,15 +30,15 @@ import java.util.regex.Pattern;
 
 public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequestFactory, HttpResponseFactory {
 
-	private ServletContainerDispatcher servletContainerDispatcher;
-	private Dispatcher dispatcher;
-	private ResteasyProviderFactory providerFactory;
+	private final ServletContainerDispatcher servletContainerDispatcher;
+	private final Dispatcher dispatcher;
+	private final ResteasyProviderFactory providerFactory;
+	private final ApplicationGlobals globals;
 
 	private final Pattern filterPattern;
 	private final Logger logger;
 
 	boolean productionMode;
-
 
 	private CheckForUpdatesFilter checkForUpdatesFilter;
 
@@ -63,6 +63,7 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 
 		this.logger = logger;
 		this.filterPattern = Pattern.compile(filterPath + ".*", Pattern.CASE_INSENSITIVE);
+		this.globals = globals;
 
 		ListenerBootstrap bootstrap = new TapestryResteasyBootstrap(globals.getServletContext(), source);
 
@@ -102,18 +103,12 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	public HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request,
 												 ResteasyHttpHeaders headers, ResteasyUriInfo uriInfo,
 												 HttpResponse theResponse, HttpServletResponse response) {
-		return createResteasyHttpRequest(httpMethod, request, headers, uriInfo, theResponse);
+		return new HttpServletInputMessage(request, response, globals.getServletContext(), theResponse, headers, uriInfo, httpMethod.toUpperCase(), (SynchronousDispatcher) dispatcher);
 	}
 
 	@Override
 	public HttpResponse createResteasyHttpResponse(HttpServletResponse response) {
 		return createServletResponse(response);
-	}
-
-	protected HttpRequest createResteasyHttpRequest(String httpMethod, HttpServletRequest request, ResteasyHttpHeaders headers,
-	                                                ResteasyUriInfo uriInfo, HttpResponse theResponse) {
-
-		return new HttpServletInputMessage(request, theResponse, headers, uriInfo, httpMethod.toUpperCase(), (SynchronousDispatcher) dispatcher);
 	}
 
 	protected HttpResponse createServletResponse(HttpServletResponse response) {

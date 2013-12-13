@@ -104,8 +104,8 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.4-alpha-16</tapestry-release-version>
-		<resteasy-version>3.0.1.Final</resteasy-version>
+		<tapestry-release-version>5.4-alpha-29</tapestry-release-version>
+		<resteasy-version>3.0.5.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
