@@ -7,7 +7,7 @@ import org.apache.tapestry5.test.TapestryTestCase;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.tynamo.resteasy.services.AppModule;
-import org.tynamo.resteasy.services.DisableAutoScanModule;
+import org.tynamo.resteasy.modules.DisableAutoScanModule;
 
 public class DisableAutoScanTest extends TapestryTestCase
 {
@@ -25,7 +25,7 @@ public class DisableAutoScanTest extends TapestryTestCase
 		registry.performRegistryStartup();
 
 		javax.ws.rs.core.Application app = registry.getService(javax.ws.rs.core.Application.class);
-		Assert.assertEquals(app.getSingletons().size(), 5, "there are five services");
+		Assert.assertEquals(app.getSingletons().size(), 9, "there are five services");
 
 		registry.shutdown();
 
@@ -46,7 +46,7 @@ public class DisableAutoScanTest extends TapestryTestCase
 		registry.performRegistryStartup();
 
 		javax.ws.rs.core.Application app = registry.getService(javax.ws.rs.core.Application.class);
-		Assert.assertEquals(app.getSingletons().size(), 2, "there are two services");
+		Assert.assertEquals(app.getSingletons().size(), 6, "there are two services");
 
 		registry.shutdown();
 	}
