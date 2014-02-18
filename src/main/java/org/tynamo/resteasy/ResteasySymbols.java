@@ -11,4 +11,9 @@ public class ResteasySymbols
 	 */
 	public static final String AUTOSCAN_REST_PACKAGE = "tynamo.resteasy.autodiscovery";
 
+	/**
+	 * add the CORS authorization to the header
+	 */
+	public static final String CORS_ENABLED = "tynamo.resteasy.cors-enabled";
+
 }

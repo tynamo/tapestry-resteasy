@@ -38,7 +38,8 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	private final Pattern filterPattern;
 	private final Logger logger;
 
-	boolean productionMode;
+	private boolean productionMode;
+	private boolean corsEnabled;
 
 	private CheckForUpdatesFilter checkForUpdatesFilter;
 
@@ -58,7 +59,8 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 			@Symbol(SymbolConstants.PRODUCTION_MODE) boolean productionMode,
 			UpdateListenerHub updateListenerHub,
 			@Symbol(SymbolConstants.FILE_CHECK_INTERVAL) @IntermediateType(TimeInterval.class) long checkInterval,
-			@Symbol(SymbolConstants.FILE_CHECK_UPDATE_TIMEOUT) @IntermediateType(TimeInterval.class) long updateTimeout
+			@Symbol(SymbolConstants.FILE_CHECK_UPDATE_TIMEOUT) @IntermediateType(TimeInterval.class) long updateTimeout,
+			@Symbol(ResteasySymbols.CORS_ENABLED) boolean corsEnabled
 	) throws ServletException {
 
 		this.logger = logger;
@@ -74,6 +76,7 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 		processApplication(application);
 
 		this.productionMode = productionMode;
+		this.corsEnabled = corsEnabled;
 		checkForUpdatesFilter = new CheckForUpdatesFilter(updateListenerHub, checkInterval, updateTimeout);
 	}
 
@@ -93,6 +96,10 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 			}
 
 			servletContainerDispatcher.service(request.getMethod(), request, response, true);
+			if (corsEnabled)
+			{
+				response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+			}
 			return true;
 		}
 

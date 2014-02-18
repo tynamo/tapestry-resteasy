@@ -45,10 +45,12 @@ public class ResteasyModule
 
 	@Contribute(SymbolProvider.class)
 	@FactoryDefaults
-	public static void setupSymbols(MappedConfiguration<String, String> configuration)
+	public static void setupSymbols(MappedConfiguration<String, Object> configuration)
 	{
 		configuration.add(ResteasySymbols.MAPPING_PREFIX, "/rest");
 		configuration.add(ResteasySymbols.MAPPING_PREFIX_JSAPI, "/jsapi");
+		configuration.add(ResteasySymbols.AUTOSCAN_REST_PACKAGE, true);
+		configuration.add(ResteasySymbols.CORS_ENABLED, false);
 	}
 
 	@Contribute(javax.ws.rs.core.Application.class)
@@ -127,12 +129,4 @@ public class ResteasyModule
 			}
 		};
 	}
-
-	@Contribute(SymbolProvider.class)
-	@FactoryDefaults
-	public static void provideFactoryDefaults(final MappedConfiguration<String, String> configuration)
-	{
-		configuration.add(ResteasySymbols.AUTOSCAN_REST_PACKAGE, "true");
-	}
-
 }
