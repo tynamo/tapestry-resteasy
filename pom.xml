@@ -10,14 +10,15 @@
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.0.12</version>
+		<version>0.1.0</version>
 	</parent>
 
 	<scm>
-		<connection>scm:svn:http://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</connection>
-		<developerConnection>scm:svn:https://svn.codehaus.org/tynamo/trunk/tapestry-resteasy</developerConnection>
-		<url>http://svn.tynamo.codehaus.org/tynamo/trunk/tapestry-resteasy</url>
-	</scm>
+		<connection>scm:git:git@github.com:tynamo/tapestry-resteasy.git</connection>
+		<developerConnection>scm:git:git@github.com:tynamo/tapestry-resteasy.git</developerConnection>
+		<url>https://github.com/tynamo/tapestry-resteasy</url>
+	  <tag>HEAD</tag>
+  </scm>
 
 	<distributionManagement>
 		<site>
@@ -104,7 +105,7 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.4-beta-2</tapestry-release-version>
+		<tapestry-release-version>5.4-beta-3</tapestry-release-version>
 		<resteasy-version>3.0.5.Final</resteasy-version>
 	</properties>
 
