@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package org.tynamo.resteasy.modules;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import com.fasterxml.jackson.annotation.JsonInclude;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import com.fasterxml.jackson.databind.DeserializationFeature;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import com.fasterxml.jackson.databind.ObjectMapper;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import com.fasterxml.jackson.databind.SerializationFeature;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import com.wordnik.swagger.config.ScannerFactory;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import com.wordnik.swagger.jaxrs.config.BeanConfig;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import org.apache.tapestry5.SymbolConstants;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import org.apache.tapestry5.internal.InternalConstants;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import org.apache.tapestry5.ioc.Configuration;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import org.apache.tapestry5.ioc.MappedConfiguration;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>import org.apache.tapestry5.ioc.annotations.Contribute;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>import org.apache.tapestry5.ioc.annotations.Startup;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import org.apache.tapestry5.ioc.annotations.Symbol;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import org.apache.tapestry5.ioc.services.ApplicationDefaults;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import org.apache.tapestry5.ioc.services.SymbolProvider;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import org.apache.tapestry5.services.BaseURLSource;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import org.tynamo.resteasy.ResteasySymbols;<a name="line.21"></a>
+<span class="sourceLineNo">022</span><a name="line.22"></a>
+<span class="sourceLineNo">023</span>public class SwaggerModule<a name="line.23"></a>
+<span class="sourceLineNo">024</span>{<a name="line.24"></a>
+<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">026</span>        @Contribute(SymbolProvider.class)<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        @ApplicationDefaults<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        public static void provideSymbols(MappedConfiguration&lt;String, Object&gt; configuration)<a name="line.28"></a>
+<span class="sourceLineNo">029</span>        {<a name="line.29"></a>
+<span class="sourceLineNo">030</span>                configuration.add(ResteasySymbols.CORS_ENABLED, true);<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        }<a name="line.31"></a>
+<span class="sourceLineNo">032</span><a name="line.32"></a>
+<span class="sourceLineNo">033</span>        @Contribute(javax.ws.rs.core.Application.class)<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        public static void contributeApplication(Configuration&lt;Object&gt; singletons)<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        {<a name="line.35"></a>
+<span class="sourceLineNo">036</span>                singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON.class);<a name="line.36"></a>
+<span class="sourceLineNo">037</span>                singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider.class);<a name="line.37"></a>
+<span class="sourceLineNo">038</span>                singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ResourceListingProvider.class);<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        }<a name="line.39"></a>
+<span class="sourceLineNo">040</span><a name="line.40"></a>
+<span class="sourceLineNo">041</span>        @Contribute(javax.ws.rs.core.Application.class)<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        public static void jacksonJsonProviderSetup(Configuration&lt;Object&gt; singletons)<a name="line.42"></a>
+<span class="sourceLineNo">043</span>        {<a name="line.43"></a>
+<span class="sourceLineNo">044</span><a name="line.44"></a>
+<span class="sourceLineNo">045</span>                final ObjectMapper mapper = new ObjectMapper();<a name="line.45"></a>
+<span class="sourceLineNo">046</span>                mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);<a name="line.46"></a>
+<span class="sourceLineNo">047</span>                mapper.setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);<a name="line.47"></a>
+<span class="sourceLineNo">048</span>                /**<a name="line.48"></a>
+<span class="sourceLineNo">049</span>                 * "publishedDate": 1384267338786,<a name="line.49"></a>
+<span class="sourceLineNo">050</span>                 * vs<a name="line.50"></a>
+<span class="sourceLineNo">051</span>                 * "publishedDate": "2013-11-12T14:42:18.786+0000",<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                 */<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);<a name="line.53"></a>
+<span class="sourceLineNo">054</span>                mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);<a name="line.54"></a>
+<span class="sourceLineNo">055</span><a name="line.55"></a>
+<span class="sourceLineNo">056</span>                JacksonJaxbJsonProvider jacksonJsonProvider = new JacksonJaxbJsonProvider();<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                jacksonJsonProvider.setMapper(mapper);<a name="line.57"></a>
+<span class="sourceLineNo">058</span><a name="line.58"></a>
+<span class="sourceLineNo">059</span>                singletons.add(jacksonJsonProvider);<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        }<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>        @Startup<a name="line.62"></a>
+<span class="sourceLineNo">063</span>        public static void swagger(javax.ws.rs.core.Application application,<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                                   BaseURLSource baseURLSource,<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                                   @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM) String basePackage,<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                                   @Symbol(ResteasySymbols.MAPPING_PREFIX) String restPath,<a name="line.66"></a>
+<span class="sourceLineNo">067</span>                                   @Symbol(SymbolConstants.APPLICATION_VERSION) String version)<a name="line.67"></a>
+<span class="sourceLineNo">068</span>        {<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                application.getSingletons(); // EAGER LOADING!!<a name="line.69"></a>
+<span class="sourceLineNo">070</span><a name="line.70"></a>
+<span class="sourceLineNo">071</span>                BeanConfig config = new BeanConfig();<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                config.setResourcePackage(basePackage);<a name="line.72"></a>
+<span class="sourceLineNo">073</span>                config.setVersion(version);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                config.setBasePath("http://localhost:8080" + restPath);<a name="line.74"></a>
+<span class="sourceLineNo">075</span>//              config.setBasePath(baseURLSource.getBaseURL(false) + restPath);<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                config.setTitle("Tapestry5-RESTEasy-Swagger Sample");<a name="line.76"></a>
+<span class="sourceLineNo">077</span>/*<a name="line.77"></a>
+<span class="sourceLineNo">078</span>                config.setDescription("");<a name="line.78"></a>
+<span class="sourceLineNo">079</span>                config.setContact("");<a name="line.79"></a>
+<span class="sourceLineNo">080</span>                config.setLicense("Apache 2.0 License");<a name="line.80"></a>
+<span class="sourceLineNo">081</span>                config.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");<a name="line.81"></a>
+<span class="sourceLineNo">082</span>*/<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                config.setScan(true);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>                config.setApiReader(DefaultJaxrsApiReader.class.getCanonicalName()); // Add the reader, which scans the resources and extracts the resource information<a name="line.84"></a>
+<span class="sourceLineNo">085</span><a name="line.85"></a>
+<span class="sourceLineNo">086</span>                ScannerFactory.setScanner(config);<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        }<a name="line.87"></a>
+<span class="sourceLineNo">088</span>}<a name="line.88"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>

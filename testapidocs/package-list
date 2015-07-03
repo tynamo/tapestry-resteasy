@@ -1,0 +1,7 @@
+org.tynamo.resteasy
+org.tynamo.resteasy.integration
+org.tynamo.resteasy.modules
+org.tynamo.resteasy.rest
+org.tynamo.resteasy.services
+org.tynamo.resteasy.ws
+org.tynamo.resteasy.ws.autobuild
