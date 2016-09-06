@@ -105,8 +105,8 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.4-beta-3</tapestry-release-version>
-		<resteasy-version>3.0.7.Final</resteasy-version>
+		<tapestry-release-version>5.4.1</tapestry-release-version>
+		<resteasy-version>3.0.19.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
@@ -151,7 +151,7 @@
 		<dependency>
 			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
-			<version>0.0.1</version>
+			<version>0.1.2</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -175,7 +175,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.2</version>
+			<version>1.7.21</version>
 			<scope>test</scope>
 		</dependency>
 
