@@ -106,7 +106,7 @@
 
 	<properties>
 		<tapestry-release-version>5.4-beta-3</tapestry-release-version>
-		<resteasy-version>3.0.7.Final</resteasy-version>
+		<resteasy-version>3.1.0.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
