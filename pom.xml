@@ -151,7 +151,7 @@
 		<dependency>
 			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
-			<version>0.0.1</version>
+			<version>0.1.2</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
