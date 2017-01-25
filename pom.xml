@@ -149,7 +149,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.23</groupId>
+			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
 			<version>0.0.1</version>
 			<scope>test</scope>
