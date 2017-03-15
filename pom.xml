@@ -151,26 +151,22 @@
 		<dependency>
 			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
-			<version>0.0.1</version>
+			<version>0.1.2</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>org.testng</groupId>
-					<artifactId>testng</artifactId> <!-- conflicts with tapestry-test dependencies-->
-				</exclusion>
-				<exclusion>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-webapp</artifactId> <!-- conflicts with tapestry-test dependencies-->
+				  <groupId>org.apache.httpcomponents</groupId>
+				  <artifactId>httpclient</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.tapestry</groupId>
-			<artifactId>tapestry-test</artifactId>
-			<version>${tapestry-release-version}</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-client</artifactId>
+            <version>${resteasy-version}</version>
+            <scope>test</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -216,4 +212,13 @@
 		</profile>
 	</profiles>
 
+	<dependencyManagement>
+	  <dependencies>
+	    <dependency>
+	      <groupId>net.sourceforge.htmlunit</groupId>
+	      <artifactId>htmlunit</artifactId>
+	      <version>2.10</version>
+	    </dependency>
+	  </dependencies>
+	</dependencyManagement>
 </project>
