@@ -1,8 +1,9 @@
 package org.tynamo.resteasy.integration;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.jboss.resteasy.client.ClientRequest;
-import org.jboss.resteasy.client.ClientResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.ClientBuilder;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -35,10 +36,12 @@ public class ResteasyIntegrationTest extends AbstractContainerTest
 	@Test
 	public void testEchoResource() throws Exception
 	{
-		ClientRequest request = new ClientRequest(BASEURI + "mycustomresteasyprefix/echo/Hellow World!");
-		ClientResponse<String> response = request.get(String.class);
-		Assert.assertEquals(response.getStatus(), 200);
-		Assert.assertEquals(response.getEntity(), "{\"message\":\"Hellow World!\"}");
+		Client client = ClientBuilder.newClient();
+		Invocation.Builder builder = client.target(BASEURI + "mycustomresteasyprefix/echo/Hellow World!").request();
+		String response = builder.get(String.class);
+		Assert.assertEquals(response, "{\"message\":\"Hellow World!\"}");
+		client.close();
+
 	}
 
 }

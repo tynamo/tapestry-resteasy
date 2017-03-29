@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 import org.tynamo.resteasy.services.AppModule;
 import org.tynamo.resteasy.modules.DisableAutoScanModule;
 
-public class DisableAutoScanTest extends TapestryTestCase
+public class DisableAutoScanTest
 {
 
 	@Test
