@@ -21,4 +21,11 @@ public class ReloadableEchoResourceImpl implements ReloadableEchoResource
 		return Response.ok(first).build();
 	}
 
+	@Override
+	public Response genericLongsWorkaround(GenericLongsRequest request)
+	{
+		Long first = request.params.get(0); // OK
+		return Response.ok(first).build();
+	}
+
 }

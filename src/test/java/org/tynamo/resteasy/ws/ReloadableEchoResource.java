@@ -27,4 +27,15 @@ public interface ReloadableEchoResource
 	@Consumes("application/json")
 	@Produces("application/json")
 	Response genericLongs(List<Long> params);
+
+	class GenericLongsRequest
+	{
+		public List<Long> params;
+	}
+
+	@POST
+	@Path("/generic_longs_workaround")
+	@Consumes("application/json")
+	@Produces("application/json")
+	Response genericLongsWorkaround(GenericLongsRequest request);
 }

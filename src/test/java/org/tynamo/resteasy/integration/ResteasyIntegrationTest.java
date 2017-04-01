@@ -54,4 +54,14 @@ public class ResteasyIntegrationTest extends AbstractContainerTest
 		Assert.assertEquals(response, "1");
 		client.close();
 	}
+
+	@Test
+	public void testEchoGenericListOfLongsWorkaround() throws Exception
+	{
+		Client client = ClientBuilder.newClient();
+		Invocation.Builder builder = client.target(BASEURI + "mycustomresteasyprefix/echo/generic_longs_workaround").request();
+		String response = builder.post(Entity.json("{\"params\": [1, 2, 3]}"), String.class);
+		Assert.assertEquals(response, "1");
+		client.close();
+	}
 }
