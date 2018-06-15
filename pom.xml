@@ -4,13 +4,13 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.4.1-SNAPSHOT</version>
+	<version>0.5.0-SNAPSHOT</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.2.1</version>
+		<version>0.2.3</version>
 	</parent>
 
 	<scm>
@@ -101,6 +101,22 @@
 
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.0.1</version>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+					<optimize>true</optimize>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
