@@ -4,13 +4,13 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.5.1-SNAPSHOT</version>
+	<version>0.6.0-SNAPSHOT</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.2.3</version>
+		<version>0.3.1</version>
 	</parent>
 
 	<scm>
@@ -19,14 +19,6 @@
 		<url>https://github.com/tynamo/tapestry-resteasy</url>
 	  <tag>HEAD</tag>
   </scm>
-
-	<distributionManagement>
-		<site>
-			<id>tynamo-site</id>
-			<!-- Note the url. Only static files deployed in /constant/ can be decorated by Unity -->
-			<url>dav:https://dav.codehaus.org/tynamo/constant/sites/tapestry-resteasy</url>
-		</site>
-	</distributionManagement>
 
 	<build>
 		<plugins>
@@ -77,8 +69,6 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>7.6.5.v20120716</version>
-
 				<configuration>
 					<useTestClasspath>true</useTestClasspath>
 					<webAppConfig>
@@ -104,7 +94,6 @@
 
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.0.1</version>
 			</plugin>
 
 			<plugin>
@@ -121,8 +110,8 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.4.3</tapestry-release-version>
-		<resteasy-version>3.1.4.Final</resteasy-version>
+		<tapestry-release-version>5.5.0</tapestry-release-version>
+		<resteasy-version>3.11.2.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
@@ -159,24 +148,24 @@
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
-			<version>0.1.2</version>
+			<version>0.2.1</version>
 			<scope>test</scope>
 		</dependency>
 
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>${resteasy-version}</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<version>${resteasy-version}</version>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -221,14 +210,4 @@
 			</repositories>
 		</profile>
 	</profiles>
-
-	<dependencyManagement>
-	  <dependencies>
-	    <dependency>
-	      <groupId>net.sourceforge.htmlunit</groupId>
-	      <artifactId>htmlunit</artifactId>
-	      <version>2.10</version>
-	    </dependency>
-	  </dependencies>
-	</dependencyManagement>
 </project>
