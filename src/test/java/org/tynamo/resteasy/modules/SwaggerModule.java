@@ -1,13 +1,5 @@
 package org.tynamo.resteasy.modules;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.wordnik.swagger.config.ScannerFactory;
-import com.wordnik.swagger.jaxrs.config.BeanConfig;
-import com.wordnik.swagger.jaxrs.reader.DefaultJaxrsApiReader;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.internal.InternalConstants;
 import org.apache.tapestry5.ioc.Configuration;
@@ -19,6 +11,18 @@ import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.apache.tapestry5.services.BaseURLSource;
 import org.tynamo.resteasy.ResteasySymbols;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
+
+import io.swagger.config.ScannerFactory;
+import io.swagger.jaxrs.config.BeanConfig;
+import io.swagger.jaxrs.listing.AcceptHeaderApiListingResource;
+import io.swagger.jaxrs.listing.ApiListingResource;
+import io.swagger.v3.jaxrs2.SwaggerSerializers;
 
 public class SwaggerModule
 {
@@ -33,9 +37,9 @@ public class SwaggerModule
 	@Contribute(javax.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons)
 	{
-		singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON.class);
-		singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider.class);
-		singletons.addInstance(com.wordnik.swagger.jaxrs.listing.ResourceListingProvider.class);
+		singletons.addInstance(ApiListingResource.class);
+		singletons.addInstance(SwaggerSerializers.class);
+		singletons.addInstance(AcceptHeaderApiListingResource.class);
 	}
 
 	@Contribute(javax.ws.rs.core.Application.class)
@@ -81,7 +85,9 @@ public class SwaggerModule
 		config.setLicenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
 */
 		config.setScan(true);
-		config.setApiReader(DefaultJaxrsApiReader.class.getCanonicalName()); // Add the reader, which scans the resources and extracts the resource information
+		// kaosko 2020-04-20, doesn't seem this is required anymore?
+		// config.set set setApiReader(DefaultJaxrsApiReader.class.getCanonicalName()); // Add the reader, which scans the resources and
+		// extracts the resource information
 
 		ScannerFactory.setScanner(config);
 	}
