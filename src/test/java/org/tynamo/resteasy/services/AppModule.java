@@ -6,7 +6,7 @@ import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.tynamo.resteasy.ResteasyModule;
@@ -17,7 +17,7 @@ import org.tynamo.resteasy.rest.AutodiscoverableInjectableResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResourceImpl;
 
-@SubModule({ResteasyModule.class, SwaggerModule.class})
+@ImportModule({ ResteasyModule.class, SwaggerModule.class })
 public class AppModule
 {
 

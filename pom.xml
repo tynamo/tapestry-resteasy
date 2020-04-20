@@ -173,6 +173,10 @@
 			<version>1.7.2</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- 
+		o.swagger.core.v3 » swagger-jaxrs2 
+		 -->
 
 		<dependency>
 			<groupId>com.wordnik</groupId>
