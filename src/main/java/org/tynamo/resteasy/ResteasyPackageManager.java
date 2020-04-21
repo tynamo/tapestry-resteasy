@@ -6,7 +6,7 @@ import org.apache.tapestry5.ioc.annotations.UsesConfiguration;
 
 /**
  * Contains a set of contributed package names from which to load REST resources
- * <p/>
+ *
  * The service's configuration is the names of Java packages to search for REST resources.
  */
 @UsesConfiguration(String.class)
