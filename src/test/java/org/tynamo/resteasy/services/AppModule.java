@@ -29,8 +29,12 @@ public class AppModule
 
 	/**
 	 * Contributions to the RESTeasy main Application, insert all your RESTeasy singleton services here.
-	 * <p/>
-	 *
+	 * 
+	 * @param singletons
+	 *          jax-rs singleton resources
+	 * @param reloadableEchoResource
+	 *          T5 service to be contributed as a REST resource
+	 * 
 	 */
 	@Contribute(javax.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons,
