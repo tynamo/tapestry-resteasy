@@ -1,8 +1,16 @@
 package org.tynamo.resteasy;
 
 
+import java.util.Collection;
+
+import javax.ws.rs.ext.Provider;
+
 import org.apache.tapestry5.internal.InternalConstants;
-import org.apache.tapestry5.ioc.*;
+import org.apache.tapestry5.ioc.Configuration;
+import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.ObjectLocator;
+import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.InjectService;
 import org.apache.tapestry5.ioc.annotations.Symbol;
@@ -13,9 +21,6 @@ import org.apache.tapestry5.services.HttpServletRequestFilter;
 import org.apache.tapestry5.services.HttpServletRequestHandler;
 import org.jboss.resteasy.util.GetRestful;
 import org.slf4j.Logger;
-
-import javax.ws.rs.ext.Provider;
-import java.util.Collection;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry
@@ -104,10 +109,8 @@ public class ResteasyModule
 		}
 	}
 
-	/**
-	 * Contributes the package "&lt;root&gt;.rest" (InternalConstants.TAPESTRY_APP_PACKAGE_PARAM + ".rest")
-	 * to the configuration, so that it will be scanned for annotated REST resource classes.
-	 */
+	// Contributes the package "&lt;root&gt;.rest" (InternalConstants.TAPESTRY_APP_PACKAGE_PARAM + ".rest")
+	// to the configuration, so that it will be scanned for annotated REST resource classes.
 	@Contribute(ResteasyPackageManager.class)
 	public static void resteasyPackageManager(Configuration<String> configuration,
 	                                          @Symbol(InternalConstants.TAPESTRY_APP_PACKAGE_PARAM) String appRootPackage,

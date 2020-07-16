@@ -6,18 +6,17 @@ import org.apache.tapestry5.ioc.Configuration;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Contribute;
-import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.annotations.ImportModule;
 import org.apache.tapestry5.ioc.services.ApplicationDefaults;
 import org.apache.tapestry5.ioc.services.SymbolProvider;
 import org.tynamo.resteasy.ResteasyModule;
 import org.tynamo.resteasy.ResteasyPackageManager;
 import org.tynamo.resteasy.ResteasySymbols;
-import org.tynamo.resteasy.modules.SwaggerModule;
 import org.tynamo.resteasy.rest.AutodiscoverableInjectableResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResource;
 import org.tynamo.resteasy.ws.ReloadableEchoResourceImpl;
 
-@SubModule({ResteasyModule.class, SwaggerModule.class})
+@ImportModule(ResteasyModule.class)
 public class AppModule
 {
 
@@ -30,8 +29,12 @@ public class AppModule
 
 	/**
 	 * Contributions to the RESTeasy main Application, insert all your RESTeasy singleton services here.
-	 * <p/>
-	 *
+	 * 
+	 * @param singletons
+	 *          jax-rs singleton resources
+	 * @param reloadableEchoResource
+	 *          T5 service to be contributed as a REST resource
+	 * 
 	 */
 	@Contribute(javax.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons,

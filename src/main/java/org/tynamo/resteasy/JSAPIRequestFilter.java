@@ -13,7 +13,6 @@ import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.slf4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class JSAPIRequestFilter implements HttpServletRequestFilter
 
 	public JSAPIRequestFilter(@Inject @Symbol(ResteasySymbols.MAPPING_PREFIX_JSAPI) String filterPath,
 	                          ApplicationGlobals globals, Logger logger)
-			throws ServletException
+			throws Exception
 	{
 		this.logger = logger;
 
