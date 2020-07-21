@@ -4,7 +4,7 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.6.0-SATAGO</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
@@ -111,7 +111,7 @@
 
 	<properties>
 		<tapestry-release-version>5.5.0</tapestry-release-version>
-		<resteasy-version>3.11.2.Final</resteasy-version>
+		<resteasy-version>4.5.3.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
@@ -124,7 +124,7 @@
 
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>resteasy-jaxrs</artifactId>
+			<artifactId>resteasy-core</artifactId>
 			<version>${resteasy-version}</version>
 			<exclusions>
 				<exclusion>
