@@ -8,14 +8,14 @@ import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.ioc.util.TimeInterval;
 import org.apache.tapestry5.services.*;
-import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.core.SynchronousDispatcher;
 import org.jboss.resteasy.plugins.server.servlet.*;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
+import org.jboss.resteasy.specimpl.ResteasyUriInfo;
+import org.jboss.resteasy.spi.Dispatcher;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.HttpResponse;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.jboss.resteasy.spi.ResteasyUriInfo;
 import org.jboss.resteasy.util.GetRestful;
 import org.slf4j.Logger;
 
@@ -114,12 +114,13 @@ public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequ
 	}
 
 	@Override
-	public HttpResponse createResteasyHttpResponse(HttpServletResponse response) {
-		return createServletResponse(response);
+	public HttpResponse createResteasyHttpResponse(HttpServletResponse httpServletResponse, HttpServletRequest httpServletRequest)
+	{
+		return createServletResponse(httpServletResponse, httpServletRequest);
 	}
 
-	protected HttpResponse createServletResponse(HttpServletResponse response) {
-		return new HttpServletResponseWrapper(response, providerFactory);
+	protected HttpResponse createServletResponse(HttpServletResponse response, HttpServletRequest request) {
+		return new HttpServletResponseWrapper(response, request, providerFactory);
 	}
 
 	private void processApplication(Application config) {
