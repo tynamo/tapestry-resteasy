@@ -1,15 +1,36 @@
 package org.tynamo.resteasy;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Pattern;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Application;
+import javax.ws.rs.ext.Provider;
+
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.commons.util.TimeInterval;
+import org.apache.tapestry5.http.services.ApplicationGlobals;
+import org.apache.tapestry5.http.services.HttpServletRequestFilter;
+import org.apache.tapestry5.http.services.HttpServletRequestHandler;
+import org.apache.tapestry5.http.services.Request;
+import org.apache.tapestry5.http.services.RequestHandler;
+import org.apache.tapestry5.http.services.Response;
 import org.apache.tapestry5.internal.services.CheckForUpdatesFilter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.IntermediateType;
 import org.apache.tapestry5.ioc.annotations.Symbol;
 import org.apache.tapestry5.ioc.services.SymbolSource;
-import org.apache.tapestry5.ioc.util.TimeInterval;
-import org.apache.tapestry5.services.*;
+import org.apache.tapestry5.ioc.services.UpdateListenerHub;
 import org.jboss.resteasy.core.SynchronousDispatcher;
-import org.jboss.resteasy.plugins.server.servlet.*;
+import org.jboss.resteasy.plugins.server.servlet.HttpRequestFactory;
+import org.jboss.resteasy.plugins.server.servlet.HttpResponseFactory;
+import org.jboss.resteasy.plugins.server.servlet.HttpServletInputMessage;
+import org.jboss.resteasy.plugins.server.servlet.HttpServletResponseWrapper;
+import org.jboss.resteasy.plugins.server.servlet.ListenerBootstrap;
+import org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher;
 import org.jboss.resteasy.specimpl.ResteasyHttpHeaders;
 import org.jboss.resteasy.specimpl.ResteasyUriInfo;
 import org.jboss.resteasy.spi.Dispatcher;
@@ -18,15 +39,6 @@ import org.jboss.resteasy.spi.HttpResponse;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.jboss.resteasy.util.GetRestful;
 import org.slf4j.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Application;
-import javax.ws.rs.ext.Provider;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 public class ResteasyRequestFilter implements HttpServletRequestFilter, HttpRequestFactory, HttpResponseFactory {
 
