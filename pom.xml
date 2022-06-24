@@ -111,7 +111,7 @@
 
 	<properties>
 		<tapestry-release-version>5.7.2</tapestry-release-version>
-		<resteasy-version>4.5.7.Final</resteasy-version>
+		<resteasy-version>4.6.0.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
