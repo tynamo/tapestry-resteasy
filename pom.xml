@@ -110,7 +110,7 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.7.2</tapestry-release-version>
+		<tapestry-release-version>5.8.2</tapestry-release-version>
 		<resteasy-version>4.6.0.Final</resteasy-version>
 	</properties>
 
