@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Collection;
 
-public class Application extends javax.ws.rs.core.Application
+public class Application extends jakarta.ws.rs.core.Application
 {
 	private Set<Object> singletons = new HashSet<Object>();
 	private Set<Class<?>> empty = new HashSet<Class<?>>();
