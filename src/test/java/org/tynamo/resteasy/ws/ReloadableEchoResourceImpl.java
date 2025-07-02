@@ -2,7 +2,7 @@ package org.tynamo.resteasy.ws;
 
 import org.apache.tapestry5.json.JSONObject;
 
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 public class ReloadableEchoResourceImpl implements ReloadableEchoResource
 {

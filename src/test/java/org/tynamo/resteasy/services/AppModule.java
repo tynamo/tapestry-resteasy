@@ -36,7 +36,7 @@ public class AppModule
 	 *          T5 service to be contributed as a REST resource
 	 * 
 	 */
-	@Contribute(javax.ws.rs.core.Application.class)
+	@Contribute(jakarta.ws.rs.core.Application.class)
 	public static void contributeApplication(Configuration<Object> singletons,
 	                                         ReloadableEchoResource reloadableEchoResource)
 	{

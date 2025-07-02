@@ -3,7 +3,7 @@ package org.tynamo.resteasy;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.jboss.resteasy.plugins.server.servlet.ListenerBootstrap;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 public class TapestryResteasyBootstrap extends ListenerBootstrap {
 

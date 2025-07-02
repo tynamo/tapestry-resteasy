@@ -23,7 +23,7 @@ public class DisableAutoScanTest
 		Registry registry = builder.build();
 		registry.performRegistryStartup();
 
-		javax.ws.rs.core.Application app = registry.getService(javax.ws.rs.core.Application.class);
+		jakarta.ws.rs.core.Application app = registry.getService(jakarta.ws.rs.core.Application.class);
 		Assert.assertEquals(app.getSingletons().size(), 5, "there are five services");
 
 		registry.shutdown();
@@ -44,7 +44,7 @@ public class DisableAutoScanTest
 		Registry registry = builder.build();
 		registry.performRegistryStartup();
 
-		javax.ws.rs.core.Application app = registry.getService(javax.ws.rs.core.Application.class);
+		jakarta.ws.rs.core.Application app = registry.getService(jakarta.ws.rs.core.Application.class);
 		Assert.assertEquals(app.getSingletons().size(), 2, "there are two services");
 
 		registry.shutdown();

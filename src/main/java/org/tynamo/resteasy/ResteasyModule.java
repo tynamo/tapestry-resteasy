@@ -3,7 +3,7 @@ package org.tynamo.resteasy;
 
 import java.util.Collection;
 
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.ext.Provider;
 
 import org.apache.tapestry5.commons.Configuration;
 import org.apache.tapestry5.commons.MappedConfiguration;
@@ -34,7 +34,7 @@ public class ResteasyModule
 		// Use service builder methods (example below) when the implementation
 		// is provided inline, or requires more initialization than simply
 		// invoking the constructor.
-		binder.bind(javax.ws.rs.core.Application.class, org.tynamo.resteasy.Application.class);
+		binder.bind(jakarta.ws.rs.core.Application.class, org.tynamo.resteasy.Application.class);
 		binder.bind(HttpServletRequestFilter.class, ResteasyRequestFilter.class).withId("ResteasyRequestFilter");
 		binder.bind(HttpServletRequestFilter.class, JSAPIRequestFilter.class).withId("JSAPIRequestFilter");
 	}
@@ -58,7 +58,7 @@ public class ResteasyModule
 		configuration.add(ResteasySymbols.CORS_ENABLED, false);
 	}
 
-	@Contribute(javax.ws.rs.core.Application.class)
+	@Contribute(jakarta.ws.rs.core.Application.class)
 	public static void javaxWsRsCoreApplication(Configuration<Object> singletons,
 	                                            ObjectLocator locator,
 	                                            ResteasyPackageManager resteasyPackageManager,
