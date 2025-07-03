@@ -1,13 +1,14 @@
 package org.tynamo.resteasy.integration;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.Invocation;
-import jakarta.ws.rs.client.ClientBuilder;
+import org.htmlunit.html.HtmlPage;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.tynamo.test.AbstractContainerTest;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation;
 
 public class ResteasyIntegrationTest extends AbstractContainerTest
 {
