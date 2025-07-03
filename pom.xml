@@ -4,7 +4,7 @@
 	<artifactId>tapestry-resteasy</artifactId>
 	<name>Tapestry RESTEasy</name>
 	<packaging>jar</packaging>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<description>RESTEasy Tapestry5 Integration</description>
 
 	<parent>
@@ -17,7 +17,7 @@
 		<connection>scm:git:git@github.com:tynamo/tapestry-resteasy.git</connection>
 		<developerConnection>scm:git:git@github.com:tynamo/tapestry-resteasy.git</developerConnection>
 		<url>https://github.com/tynamo/tapestry-resteasy</url>
-    <tag>HEAD</tag>
+    <tag>tapestry-resteasy-1.0.0</tag>
   </scm>
 
 	<build>
