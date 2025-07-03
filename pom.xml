@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.tynamo</groupId>
 		<artifactId>tynamo-parent</artifactId>
-		<version>0.3.1</version>
+		<version>1.0.1</version>
 	</parent>
 
 	<scm>
@@ -69,7 +69,6 @@
 			<plugin>
 				<groupId>org.eclipse.jetty.ee9</groupId>
 				<artifactId>jetty-ee9-maven-plugin</artifactId>
-				<version>12.0.22</version>
 				<configuration>
 					<useTestClasspath>true</useTestClasspath>
 					<webAppConfig>
@@ -96,17 +95,6 @@
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>
 			</plugin>
-
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>11</source>
-					<target>11</target>
-					<encoding>UTF-8</encoding>
-					<optimize>true</optimize>
-				</configuration>
-			</plugin>
-
 		</plugins>
 	</build>
 
@@ -164,7 +152,7 @@
 		<dependency>
 			<groupId>org.tynamo</groupId>
 			<artifactId>tynamo-test</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 			<scope>test</scope>
 		</dependency>
 
