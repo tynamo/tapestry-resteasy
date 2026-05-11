@@ -99,8 +99,8 @@
 	</build>
 
 	<properties>
-		<tapestry-release-version>5.9.0</tapestry-release-version>
-		<resteasy-version>6.2.12.Final</resteasy-version>
+		<tapestry-release-version>5.9.1</tapestry-release-version>
+		<resteasy-version>6.2.16.Final</resteasy-version>
 	</properties>
 
 	<dependencies>
